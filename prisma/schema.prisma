@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  firstName String
+  lastName  String
+  reviews   Review[]
+  surveys   Survey[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Restaurant {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  location    Location @relation(fields: [locationId], references: [id])
+  locationId  String   @unique @db.ObjectId
+  reviews     Review[]
+  ranking     Ranking?
+  ratings     Rating[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+}
+
+model Location {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  district   String
+  latitude   Float
+  longitude  Float
+  restaurant Restaurant?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @default(now()) @updatedAt
+}
+
+model Review {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  comment      String
+  score        Float
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String     @db.ObjectId
+  author       User       @relation(fields: [authorId], references: [id])
+  authorId     String     @db.ObjectId
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @default(now()) @updatedAt
+}
+
+model Ranking {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  ranking      Float
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String     @unique @db.ObjectId
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @default(now()) @updatedAt
+}
+
+model Rating {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String     @db.ObjectId
+  location     Float
+  food         Float
+  ambient      Float
+  service      Float
+  price        Float
+  waitingTime  Float
+  security     Float
+  parking      Float
+  surveys      Survey[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @default(now()) @updatedAt
+}
+
+model Survey {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  rating     Rating   @relation(fields: [ratingId], references: [id])
+  ratingId   String   @db.ObjectId
+  answeredBy User     @relation(fields: [authorId], references: [id])
+  authorId   String   @db.ObjectId
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+}
+
+model Worker {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  task      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
