@@ -3,6 +3,7 @@ import { logger } from '@grotto/logysia';
 import { securitySetup } from './startup/security'
 import { docsSetup } from './startup/docs';
 import { hooksSetup } from './startup/hooks';
+import signup from "./routes/signup";
 import bookRoutes from './routes/bookRoutes';
 
 const PORT = process.env.PORT || 3000;
@@ -15,8 +16,7 @@ app
   .use(hooksSetup)
   .get('/', () => 'Hello Bun.js!')
   .group('/book', (app) => {
-    // Ensure bookRoutes is used as middleware
-    app.use(bookRoutes.routes()); // Assuming @stricjs/router has a 'routes' method
+    app.use(signup);
     return app;
   })
   .listen(PORT, () => {

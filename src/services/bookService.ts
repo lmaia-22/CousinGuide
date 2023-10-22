@@ -1,4 +1,4 @@
-import bookModel from '../models/bookModel.js';
+import bookModel from '../models/bookModel.ts';
 
 async function getBooks() {
   return await bookModel.findBooks();
