@@ -1,5 +1,23 @@
 # cousinguide
 
+## Todo: 
+- Validate prisma schema
+- Create mongoDb 
+
+## Dependencies used:
+
+- elysiajs/cors
+- elysiajs/html
+- @elysiajs/jwt
+- elysiajs/swagger
+- grotto/logysia
+- prisma/client
+- elysia
+- elysia-helmet
+- joi
+- mongoose
+- prisma
+
 To install dependencies:
 
 ```bash

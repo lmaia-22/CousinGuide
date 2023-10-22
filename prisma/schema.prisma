@@ -2,6 +2,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
@@ -10,6 +11,8 @@ datasource db {
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   email     String   @unique
+  gender    String
+  attractedTo  String
   firstName String
   lastName  String
   reviews   Review[]
@@ -45,6 +48,7 @@ model Review {
   id           String     @id @default(auto()) @map("_id") @db.ObjectId
   comment      String
   score        Float
+  success      Boolean
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
   restaurantId String     @db.ObjectId
   author       User       @relation(fields: [authorId], references: [id])
@@ -73,6 +77,7 @@ model Rating {
   price        Float
   waitingTime  Float
   security     Float
+  success      Float
   parking      Float
   surveys      Survey[]
   createdAt    DateTime   @default(now())
@@ -95,3 +100,11 @@ model Worker {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 }
+
+model Book {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  title  String
+  author String
+  // other fields
+}
+
