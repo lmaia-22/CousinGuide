@@ -15,6 +15,7 @@ model User {
   attractedTo  String
   firstName String
   lastName  String
+  isAdmin   Boolean
   reviews   Review[]
   surveys   Survey[]
   createdAt DateTime @default(now())

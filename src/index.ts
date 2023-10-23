@@ -4,7 +4,7 @@ import { securitySetup } from './startup/security'
 import { docsSetup } from './startup/docs';
 import { hooksSetup } from './startup/hooks';
 import signup from "./routes/signup";
-import bookRoutes from './routes/bookRoutes';
+import books from './routes/bookRoutes';
 
 const PORT = process.env.PORT || 3000;
 export const app = new Elysia();
@@ -15,8 +15,12 @@ app
   .use(logger())
   .use(hooksSetup)
   .get('/', () => 'Hello Bun.js!')
-  .group('/book', (app) => {
+  .group('/user', (app) => {
     app.use(signup);
+    return app;
+  })
+  .group('/restaurant', (app) => {
+    app.use(books);
     return app;
   })
   .listen(PORT, () => {

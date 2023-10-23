@@ -1,14 +1,11 @@
-import { Elysia, t } from "elysia";
-import { adaptElysiaRouter } from "../adapters/elysia-router.ts";
-import { makeSignUpController } from "../controllers/signupController";
+import signupController from '../controllers/signupController';
+import Elysia from 'elysia';
 
-export default new Elysia().post(
-  "/signup",
-  adaptElysiaRouter(makeSignUpController()),
-  {
-    body: t.Object({
-      username: t.String(),
-      password: t.String(),
-    }),
-  }
-);
+const authen = new Elysia()
+
+.post('/signup', signupController.signup)
+.post('/login', signupController.login)
+.post('/validate', signupController.validate)
+.post('/logout', signupController.logout)
+
+export default authen;

@@ -1,15 +1,12 @@
-import { Router } from '@stricjs/router';
-import bookController from '../controllers/bookController.js';
+import bookController from '../controllers/bookController.ts';
+import Elysia from 'elysia';
 
-const router = new Router();
+const books = new Elysia()
+.get('/books', bookController.getBooks)
+.get('/books/:id', bookController.getBook)
+.post('/books', bookController.createBook)
+.put('/books/:id', bookController.updateBook)
+.delete('/books/:id', bookController.deleteBook)
 
-
-router.get('/books', bookController.getBooks);
-router.get('/books/:id', bookController.getBook);
-router.post('/books', bookController.createBook);
-router.put('/books/:id', bookController.updateBook);
-router.delete('/books/:id', bookController.deleteBook);
-
-export default router;
-
+export default books;
 
