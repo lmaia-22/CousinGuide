@@ -1,5 +1,5 @@
 import { Elysia, t } from 'elysia';
-import User, { IUser } from '../entities/user.schema';
+import User, { IUser } from '../models/userModel';
 import { jwt } from '@elysiajs/jwt';
 
 export const usersController = (app: Elysia) =>
