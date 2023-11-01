@@ -2,7 +2,7 @@
 
 ## Todo: 
 - Validate prisma schema
-- Create mongoDb 
+- Create mongoDb - Done
 
 ## Dependencies used:
 

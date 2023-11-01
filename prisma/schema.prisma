@@ -10,16 +10,15 @@ datasource db {
 
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  username  String @unique
   email     String   @unique
   gender    String
   attractedTo  String
   firstName String
   lastName  String
-  isAdmin   Boolean
+  isAdmin   Boolean @default(false)
   reviews   Review[]
   surveys   Survey[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Restaurant {
@@ -31,8 +30,6 @@ model Restaurant {
   reviews     Review[]
   ranking     Ranking?
   ratings     Rating[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model Location {
@@ -41,8 +38,6 @@ model Location {
   latitude   Float
   longitude  Float
   restaurant Restaurant?
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @default(now()) @updatedAt
 }
 
 model Review {
@@ -54,8 +49,6 @@ model Review {
   restaurantId String     @db.ObjectId
   author       User       @relation(fields: [authorId], references: [id])
   authorId     String     @db.ObjectId
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @default(now()) @updatedAt
 }
 
 model Ranking {
@@ -63,8 +56,6 @@ model Ranking {
   ranking      Float
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
   restaurantId String     @unique @db.ObjectId
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @default(now()) @updatedAt
 }
 
 model Rating {
@@ -81,8 +72,6 @@ model Rating {
   success      Float
   parking      Float
   surveys      Survey[]
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @default(now()) @updatedAt
 }
 
 model Survey {
@@ -91,22 +80,11 @@ model Survey {
   ratingId   String   @db.ObjectId
   answeredBy User     @relation(fields: [authorId], references: [id])
   authorId   String   @db.ObjectId
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now()) @updatedAt
 }
 
 model Worker {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   task      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-}
-
-model Book {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  title  String
-  author String
-  // other fields
 }
 
 
@@ -116,9 +94,6 @@ model Playlist {
   url    String
   type   Type @relation(fields: [typeId], references: [id])
   typeId String   @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  // other fields
 }
 
 model Type {
@@ -127,16 +102,10 @@ model Type {
   genre Genre @relation(fields: [genreId], references: [id])
   genreId String   @db.ObjectId
   playlist   Playlist[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  // other fields
 }
 
 model Genre {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   name  String
   Type   Type[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  // other fields
 }

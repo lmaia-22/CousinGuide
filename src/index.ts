@@ -4,6 +4,7 @@ import { securitySetup } from './startup/security'
 import { docsSetup } from './startup/docs';
 import { hooksSetup } from './startup/hooks';
 import signup from "./routes/signup";
+import users from "./routes/usersRoutes.ts";
 import books from './routes/bookRoutes';
 
 const PORT = process.env.PORT || 3000;
@@ -15,8 +16,12 @@ app
   .use(logger())
   .use(hooksSetup)
   .get('/', () => 'Hello Bun.js!')
-  .group('/user', (app) => {
+  .group('/signup', (app) => {
     app.use(signup);
+    return app;
+  })
+  .group('/users', (app) => {
+    app.use(users);
     return app;
   })
   .group('/restaurant', (app) => {
