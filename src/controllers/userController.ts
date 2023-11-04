@@ -2,7 +2,6 @@ import userService from '../services/userService.ts';
 
 async function getUsers(req: any) {
   try {
-    const id = req.params.id;
     const Users = await userService.getUsers();
     return new Response(JSON.stringify(Users), { status: 200 }).json();
   } catch (error) {

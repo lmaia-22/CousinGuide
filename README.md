@@ -2,7 +2,8 @@
 
 ## Todo: 
 - Validate prisma schema
-- Create mongoDb - Done
+- Wait for Prisma PR with Geometry type be added -> https://github.com/prisma/prisma-engines/pull/4208
+- Validate schema Restaurant and Location
 
 ## Dependencies used:
 

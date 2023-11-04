@@ -5,7 +5,7 @@ import { docsSetup } from './startup/docs';
 import { hooksSetup } from './startup/hooks';
 import signup from "./routes/signup";
 import users from "./routes/usersRoutes.ts";
-import books from './routes/bookRoutes';
+import restaurants from "./routes/restaurantRoutes.ts";
 
 const PORT = process.env.PORT || 3000;
 export const app = new Elysia();
@@ -24,8 +24,8 @@ app
     app.use(users);
     return app;
   })
-  .group('/restaurant', (app) => {
-    app.use(books);
+  .group('/restaurants', (app) => {
+    app.use(restaurants);
     return app;
   })
   .listen(PORT, () => {
