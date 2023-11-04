@@ -1,4 +1,5 @@
 import userModel from '../models/userModel.ts';
+import validateUser from '../models/validators/userValidator.ts';
 
 async function getUsers() {
   return await userModel.findUsers();
@@ -9,11 +10,13 @@ async function getUser(id: string) {
 }
 
 async function createUser(data: any) {
-  return await userModel.createUser(data);
+  const validatedUser = validateUser(data);
+  return await userModel.createUser(validatedUser);
 }
 
 async function updateUser(id: string, data: any) {
-  return await userModel.updateUser(id, data);
+  const validatedUser = validateUser(data);
+  return await userModel.updateUser(id, validatedUser);
 }
 
 async function deleteUser(id: string) {

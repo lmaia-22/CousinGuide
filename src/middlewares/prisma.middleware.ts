@@ -22,9 +22,38 @@ prisma.$use(async (params: any, next: any) => {
 });
 
 async function main() {
-  // ... your Prisma client calls
+  async function main() {
+    try {
+      // Prisma client calls
+      const createdRating = await prisma.rating.create({
+        data: {
+          location: 5,
+          food: 8,
+          ambient: 7,
+          service: 9,
+          price: 6,
+          waitingTime: 7,
+          security: 8,
+          parking: 6,
+        },
+      });
+  
+      const createdReview = await prisma.review.create({
+        data: {
+          score: 9,
+        },
+      });
+  
+      console.log("Created rating: ", createdRating);
+      console.log("Created review: ", createdReview);
+    } catch (e) {
+      throw e;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
 }
 
 main()
-  .catch(e => throw e)
+  .catch(e => {throw e})
   .finally(async () => await prisma.$disconnect());
