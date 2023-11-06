@@ -3,7 +3,7 @@
 ## Todo: 
 - Validate schema Restaurant and Location
 - Feature00 -> Management of Users - 100%
-- Feature01 -> Management of Restaurants - 30%
+- Feature01 -> Management of Restaurants - 80%
 - Feature02 -> Management of Rankings - 0%
 - Feature03 -> Algorithm to calculate restaurant rank - 0%
 - Feature04 -> Manage restaurant and users reviews - 0%

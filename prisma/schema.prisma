@@ -14,6 +14,15 @@ enum Role {
   ADMIN
 }
 
+enum RankingDesc {
+  POOR
+  BAD
+  MEDIUM
+  GOOD
+  EXCELLENT
+}
+
+
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   username  String @unique
@@ -60,6 +69,7 @@ model Review {
 model Ranking {
   id           String     @id @default(auto()) @map("_id") @db.ObjectId
   ranking      Float
+  description  RankingDesc
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
   restaurantId String     @unique @db.ObjectId
 }
