@@ -31,6 +31,10 @@
 - Rating is where the value of all attributes is saved from a specific restaurant
 - Ranking is the value calculated based on the Rating
 
+
+## Deploy option 1:
+- https://www.koyeb.com/docs/deploy/bun
+
 ## Dependencies used:
 
 - elysiajs/cors
