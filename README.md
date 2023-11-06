@@ -26,6 +26,11 @@
 ## Blocks:
 - Wait for Prisma PR with Geometry type be added -> https://github.com/prisma/prisma-engines/pull/4208
 
+
+## Explanation:
+- Rating is where the value of all attributes is saved from a specific restaurant
+- Ranking is the value calculated based on the Rating
+
 ## Dependencies used:
 
 - elysiajs/cors
