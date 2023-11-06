@@ -3,14 +3,37 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function findRestaurants() {
-  return await prisma.restaurant.findMany();
+  return await prisma.restaurant.findMany({
+        select: {
+            id: true,
+            name: true,
+            description: true,
+            location: true,
+          },
+    });
 }
 
 async function findRestaurant(id: string) {
   return await prisma.restaurant.findUnique({
-    where: { id },
+    select: {
+        id: true,
+        name: true,
+        description: true,
+        locationId: true,
+        location: true,
+    },
+    where: { id }
   });
 }
+
+async function findRestaurantLocation(id: string) {
+    return await prisma.restaurant.findUnique({
+      select: {
+          location: true,
+      },
+      where: { id }
+    });
+  }
 
 async function createRestaurant(data: any) {
   return await prisma.restaurant.create({
@@ -24,6 +47,7 @@ async function updateRestaurant(id: string, data: any) {
     data,
   });
 }
+  
 
 async function deleteRestaurant(id: string) {
   return await prisma.restaurant.delete({
@@ -34,6 +58,7 @@ async function deleteRestaurant(id: string) {
 export default {
   findRestaurants,
   findRestaurant,
+  findRestaurantLocation,
   createRestaurant,
   updateRestaurant,
   deleteRestaurant,
