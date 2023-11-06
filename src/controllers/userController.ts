@@ -43,8 +43,8 @@ async function updateUser(req: any) {
 async function deleteUser(req: any) {
   try {
     const id = req.params.id;
-    await userService.deleteUser(id);
-    return new Response(null, { status: 204 }).json();
+    const deletedUser = await userService.deleteUser(id);
+    return new Response(JSON.stringify(deletedUser),  { status: 204 }).json();
   } catch (error) {
       return new Response(JSON.stringify(error), { status: 500 }).json();
   }

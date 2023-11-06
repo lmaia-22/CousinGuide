@@ -21,7 +21,7 @@
 - Reviews validate text (swear words)
 - License Agreement
 - User Location
-
+- Update Restaurant with Location using generated Types by prisma
 
 ## Blocks:
 - Wait for Prisma PR with Geometry type be added -> https://github.com/prisma/prisma-engines/pull/4208

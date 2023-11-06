@@ -7,7 +7,6 @@ const userSchema = Joi.object({
     attractedTo: Joi.string().trim().required(),
     firstName: Joi.string().trim().required(),
     lastName: Joi.string().trim().required(),
-    isAdmin: Joi.boolean().optional()
 });
 
 function validateUser(user: any) {

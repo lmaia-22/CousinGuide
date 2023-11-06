@@ -1,9 +1,13 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 async function findUsers() {
-  return await prisma.user.findMany();
+  return await prisma.user.findMany({
+    orderBy: { 
+      username: 'asc'
+    }
+  });
 }
 
 async function findUser(id: string) {
@@ -13,8 +17,10 @@ async function findUser(id: string) {
 }
 
 async function createUser(data: any) {
+  let user: Prisma.UserCreateInput;
+  user = data;
   return await prisma.user.create({
-    data,
+    data: user,
   });
 }
 
