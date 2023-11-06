@@ -4,7 +4,7 @@ import Joi from 'joi';
 const restaurantSchema = Joi.object({
     name: Joi.string().trim().required(),
     description: Joi.string().trim().required(),
-    locationId: Joi.string().trim().required(),
+    location: Joi.object()
 });
 
 function validateRestaurant(restaurant: any) {

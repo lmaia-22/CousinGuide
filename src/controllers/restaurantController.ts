@@ -39,12 +39,23 @@ async function getRestaurantLocation(req: any) {
     }
   }
 
+  async function getRestaurantsByDistrict(req: any) {
+    try {
+      const district = req.params.district;
+      const Restaurant = await restaurantService.getRestaurantsByDistrict(district);
+      if(Restaurant === null) {
+          return new Response(JSON.stringify('We dont have the Restaurant Location'), { status: 404 }).json();
+      }
+      return new Response(JSON.stringify(Restaurant), { status: 200 }).json();
+    } catch (error) {
+        return new Response(JSON.stringify(error), { status: 500 }).json();
+    }
+  }
+
 async function createRestaurant(req: any) {
   try {
     const data = await req.body;
-    const newLocation = await locationService.createLocation(data.location);
-
-    const newRestaurant = await restaurantService.createRestaurant(data, newLocation.id);
+    const newRestaurant = await restaurantService.createRestaurant(data);
     return new Response(JSON.stringify(newRestaurant), { status: 201 }).json();
   } catch (error) {
     console.log(error);
@@ -86,6 +97,7 @@ export default {
   getRestaurants,
   getRestaurant,
   getRestaurantLocation,
+  getRestaurantsByDistrict,
   createRestaurant,
   updateRestaurant,
   deleteRestaurant,

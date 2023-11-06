@@ -13,6 +13,8 @@
 - Feature08 -> Bearer token, cors and helment implementation - 20%
 - Feature09 -> Swager Documentation - 10%
 - Feature10 -> Infrastrucutre Support - 10%
+- Feature11 -> Beanchmark -> https://docs.codspeed.io/benchmarks/nodejs
+
 
 ## Issues:
 - Cascade onDelete not working

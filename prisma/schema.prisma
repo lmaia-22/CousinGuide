@@ -8,6 +8,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  REVIEWER
+  ADMIN
+}
+
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   username  String @unique
@@ -16,7 +22,7 @@ model User {
   attractedTo  String
   firstName String
   lastName  String
-  isAdmin   Boolean @default(false)
+  role      Role   @default(USER)
   reviews   Review[]
   surveys   Survey[]
 }
@@ -25,8 +31,7 @@ model Restaurant {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
-  location    Location @relation(fields: locationId, references: id, onDelete: Cascade)
-  locationId  String  @unique @db.ObjectId
+  location    Location?
   reviews     Review[]
   ranking     Ranking?
   ratings     Rating[]
@@ -37,7 +42,8 @@ model Location {
   district   String
   latitude   Float @unique
   longitude  Float @unique
-  restaurant Restaurant?
+  restaurant  Restaurant @relation(fields: restaurantId, references: id, onDelete: Cascade)
+  restaurantId  String  @unique @db.ObjectId
 }
 
 model Review {
