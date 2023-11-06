@@ -16,6 +16,9 @@
 
 ## Issues:
 - Cascade onDelete not working
+- Reviews validate text (swear words)
+- License Agreement
+- User Location
 
 
 ## Blocks:
