@@ -10,22 +10,16 @@ async function findRankings() {
   });
 }
 
-async function findTop100Rankings() {
-    return await prisma.ranking.findMany({
-        take: 100,
-        orderBy: { 
-            ranking: 'asc'
-        }
-      });
-}
-
-async function findTop10Rankings() {
-    return await prisma.ranking.findMany({
-        take: 10,
-        orderBy: { 
-            ranking: 'asc'
-        }
-      });
+async function findTopRankings(limit:any) {
+  return await prisma.ranking.findMany({
+      take: limit,
+      orderBy: { 
+          ranking: 'desc',
+      },
+      include: {
+        restaurant: true,
+      }
+    });
 }
 
 async function createRestaurantRanking(data: any) {
@@ -51,8 +45,7 @@ async function deleteRestaurantRanking(id: string) {
 
 export default {
   findRankings,
-  findTop100Rankings,
-  findTop10Rankings,
+  findTopRankings,
   createRestaurantRanking,
   updateRestaurantRanking,
   deleteRestaurantRanking,

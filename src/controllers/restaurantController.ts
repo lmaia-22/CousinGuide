@@ -17,7 +17,7 @@ async function getRestaurant(req: any) {
   try {
     const id = req.params.id;
     const Restaurant = await restaurantService.getRestaurant(id);
-    if(Restaurant === null) {
+    if(!Restaurant) {
         return new Response(JSON.stringify('That Restaurant doesnt exist'), { status: 404 }).json();
     }
     return new Response(JSON.stringify(Restaurant), { status: 200 }).json();
@@ -30,7 +30,7 @@ async function getRestaurantLocation(req: any) {
     try {
       const id = req.params.id;
       const Restaurant = await restaurantService.getRestaurantLocation(id);
-      if(Restaurant === null) {
+      if(!Restaurant) {
           return new Response(JSON.stringify('We dont have the Restaurant Location'), { status: 404 }).json();
       }
       return new Response(JSON.stringify(Restaurant), { status: 200 }).json();
@@ -43,7 +43,7 @@ async function getRestaurantLocation(req: any) {
     try {
       const district = req.params.district;
       const Restaurant = await restaurantService.getRestaurantsByDistrict(district);
-      if(Restaurant === null) {
+      if(!Restaurant) {
           return new Response(JSON.stringify('We dont have the Restaurant Location'), { status: 404 }).json();
       }
       return new Response(JSON.stringify(Restaurant), { status: 200 }).json();
@@ -58,8 +58,11 @@ async function createRestaurant(req: any) {
     const newRestaurant = await restaurantService.createRestaurant(data);
     return new Response(JSON.stringify(newRestaurant), { status: 201 }).json();
   } catch (error) {
-    console.log(error);
-      return new Response(JSON.stringify(error), { status: 500 }).json();
+    console.error('Error in createRestaurant:', error);
+    if (error instanceof Error) {
+      return new Response(JSON.stringify({ message: error.message }), { status: 400 }).json();
+    }
+    return new Response(JSON.stringify({ message: 'An error occurred' }), { status: 500 }).json();
   }
 }
 

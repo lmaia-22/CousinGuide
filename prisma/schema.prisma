@@ -68,7 +68,7 @@ model Review {
 
 model Ranking {
   id           String     @id @default(auto()) @map("_id") @db.ObjectId
-  ranking      Float
+  ranking      Float     
   description  RankingDesc
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
   restaurantId String     @unique @db.ObjectId

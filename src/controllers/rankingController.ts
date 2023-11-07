@@ -9,33 +9,38 @@ async function getRankings(req: any) {
   }
 }
 
-async function getTop100Rankings(req: any) {
+  async function getTopRankings(req: any) {
     try {
-      const Rankings = await rankingService.getTop100Rankings();
+      const limit = await parseInt(req.params.limit, 10);
+      if (isNaN(limit) || limit <= 0) {
+        throw new Error('The limit must be a positive integer.');
+      }
+      const Rankings = await rankingService.getTopRankings(limit);
       return new Response(JSON.stringify(Rankings), { status: 200 }).json();
     } catch (error) {
-        return new Response(JSON.stringify(error), { status: 500 }).json();
+      console.error('Error in getTopRankings:', error);
+      if (error instanceof Error) {
+        return new Response(JSON.stringify({ message: error.message }), { status: 400 }).json();
+      }
+      return new Response(JSON.stringify({ message: 'An error occurred' }), { status: 500 }).json();
     }
   }
 
-  async function getTop10Rankings(req: any) {
+  async function createRestaurantRanking(req: any) {
     try {
-        const Rankings = await rankingService.getTop10Rankings();
-      return new Response(JSON.stringify(Rankings), { status: 200 }).json();
+      const data = req.body;
+      const newRanking = await rankingService.createRestaurantRanking(data);
+      return new Response(JSON.stringify(newRanking), { status: 201 }).json();
     } catch (error) {
-        return new Response(JSON.stringify(error), { status: 500 }).json();
+      console.error('Error in createRestaurantRanking:', error); 
+      if (error instanceof Error) {
+        return new Response(JSON.stringify({ message: error.message }), { status: 400 }).json();
+      }
+      return new Response(JSON.stringify({ message: 'An error occurred' }), { status: 500 }).json();
     }
   }
-
-async function createRestaurantRanking(req: any) {
-  try {
-    const data = await req.body;
-    const newRanking = await rankingService.createRestaurantRanking(data);
-    return new Response(JSON.stringify(newRanking), { status: 201 }).json();
-  } catch (error) {
-      return new Response(JSON.stringify(error), { status: 500 }).json();
-  }
-}
+  
+  
 
 async function updateRestaurantRanking(req: any) {
   try {
@@ -44,7 +49,11 @@ async function updateRestaurantRanking(req: any) {
     const updatedRestaurantRanking = await rankingService.updateRestaurantRanking(id, data);
     return new Response(JSON.stringify(updatedRestaurantRanking), { status: 200 }).json();
   } catch (error) {
-      return new Response(JSON.stringify(error), { status: 500 }).json();
+    console.error('Error in updateRestaurantRanking:', error); 
+    if (error instanceof Error) {
+      return new Response(JSON.stringify({ message: error.message }), { status: 400 }).json();
+    }
+    return new Response(JSON.stringify({ message: 'An error occurred' }), { status: 500 }).json();
   }
 }
 
@@ -60,8 +69,7 @@ async function deleteRestaurantRanking(req: any) {
 
 export default {
   getRankings,
-  getTop100Rankings,
-  getTop10Rankings,
+  getTopRankings,
   createRestaurantRanking,
   updateRestaurantRanking,
   deleteRestaurantRanking,

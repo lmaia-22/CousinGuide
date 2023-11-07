@@ -1,25 +1,30 @@
 import rankingModel from '../models/rankingModel.ts';
 import validateRanking from '../models/validators/rankingValidator.ts';
+import restaurantService from './restaurantService.ts';
 
 async function getRankings() {
   return await rankingModel.findRankings();
 }
 
-async function getTop100Rankings() {
-  return await rankingModel.findTop100Rankings();
-}
-
-async function getTop10Rankings() {
-  return await rankingModel.findTop10Rankings();
+async function getTopRankings(limit: any) {
+  return await rankingModel.findTopRankings(limit);
 }
 
 async function createRestaurantRanking(data: any) {
   const validatedRanking = validateRanking(data);
+  const restaurantExists = await restaurantService.getRestaurant(validatedRanking.restaurantId);
+  if (!restaurantExists) {
+    throw new Error('Restaurant does not exist');
+  }
   return await rankingModel.createRestaurantRanking(validatedRanking);
 }
 
 async function updateRestaurantRanking(id: string, data: any) {
     const validatedRanking = validateRanking(data);
+    const restaurantExists = await restaurantService.getRestaurant(validatedRanking.restaurantId);
+    if (!restaurantExists) {
+      throw new Error('Restaurant does not exist');
+    }
     return await rankingModel.updateRestaurantRanking(id, validatedRanking);
 }
 
@@ -29,8 +34,7 @@ async function deleteRestaurantRanking(id: string) {
 
 export default {
   getRankings,
-  getTop100Rankings,
-  getTop10Rankings,
+  getTopRankings,
   createRestaurantRanking,
   updateRestaurantRanking,
   deleteRestaurantRanking,

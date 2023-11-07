@@ -1,12 +1,12 @@
 import Joi from 'joi';
 
 const rankingSchema = Joi.object({
-    ranking: Joi.number().required(),
+    ranking: Joi.number().min(0).max(10).required(),
     description: Joi.string().trim().required(),
-    restaurantId: Joi.string().trim().required()
+    restaurantId: Joi.string().trim().required(),
 });
 
-function validateLocation(ranking: any) {
+function validateRanking(ranking: any) {
   const result = rankingSchema.validate(ranking);
   if (result.error) {
     throw new Error(`Validation Error: ${result.error.message}`);
@@ -14,4 +14,4 @@ function validateLocation(ranking: any) {
   return result.value;
 }
 
-export default validateLocation;
+export default validateRanking;
