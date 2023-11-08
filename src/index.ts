@@ -7,14 +7,15 @@ import signup from "./routes/signup";
 import users from "./routes/userRoutes.ts";
 import restaurants from "./routes/restaurantRoutes.ts";
 import rankings from "./routes/rankingRoutes.ts";
+import ratings from "./routes/rankingRoutes.ts";
 
 const PORT = process.env.PORT || 3000;
 export const app = new Elysia();
 
 app
   .use(securitySetup)
-  .use(docsSetup)
-  .use(logger())
+  //.use(docsSetup)
+  //.use(logger())
   .use(hooksSetup)
   .get('/', () => 'Hello Bun.js!')
   .group('/signup', (app) => {
@@ -31,6 +32,10 @@ app
   })
   .group('/rankings', (app) => {
     app.use(rankings);
+    return app;
+  })
+  .group('/ratings', (app) => {
+    app.use(ratings);
     return app;
   })
   .listen(PORT, () => {

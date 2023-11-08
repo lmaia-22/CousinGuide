@@ -49,6 +49,7 @@ model Restaurant {
 model Location {
   id         String      @id @default(auto()) @map("_id") @db.ObjectId
   district   String
+  country    String
   latitude   Float @unique
   longitude  Float @unique
   restaurant  Restaurant @relation(fields: restaurantId, references: id, onDelete: Cascade)

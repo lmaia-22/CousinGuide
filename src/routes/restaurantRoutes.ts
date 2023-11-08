@@ -1,14 +1,14 @@
-import restaurantController from '../controllers/restaurantController.ts';
+import ratingController from '../controllers/ratingController.ts';
 import Elysia from 'elysia';
 
-const users = new Elysia()
-.get('/', restaurantController.getRestaurants)
-.get('/:id', restaurantController.getRestaurant)
-.get('/:id/location', restaurantController.getRestaurantLocation)
-.get('/location/:district', restaurantController.getRestaurantsByDistrict)
-.post('/', restaurantController.createRestaurant)
-.put('/:id', restaurantController.updateRestaurant)
-.delete('/:id', restaurantController.deleteRestaurant)
+const restaurants = new Elysia()
+.get('/', ratingController.getRatings)
+.get('/:id', ratingController.getRating)
+.get('/restaurant/:id', ratingController.getRestaurantRating)
+.get('/restaurant/:id/survey', ratingController.getRestaurantsByRatingBySurvey)
+.post('/', ratingController.createRating)
+.put('/:id', ratingController.updateRating)
+.delete('/:id', ratingController.deleteRating)
 
-export default users;
+export default restaurants;
 
