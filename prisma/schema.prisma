@@ -21,7 +21,18 @@ enum RankingDesc {
   GOOD
   EXCELLENT
 }
+enum PurposeDesc {
+  FIRSTDATE
+  LONGTERM
+  GETINGETOUT
+  DROPABOMB
+  CELEBRATION
+}
 
+model Purpose {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+}
 
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -44,6 +55,7 @@ model Restaurant {
   reviews     Review[]
   ranking     Ranking?
   ratings     Rating[]
+  purposes    String[] @db.ObjectId
 }
 
 model Location {
@@ -70,9 +82,14 @@ model Review {
 model Ranking {
   id           String     @id @default(auto()) @map("_id") @db.ObjectId
   ranking      Float     
-  description  RankingDesc
+  description  String[] @db.ObjectId
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
   restaurantId String     @unique @db.ObjectId
+}
+
+model RankingType {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  name         String     @unique
 }
 
 model Rating {
@@ -83,6 +100,7 @@ model Rating {
   food         Float
   ambient      Float
   service      Float
+  bathroom     Float
   price        Float
   waitingTime  Float
   security     Float
